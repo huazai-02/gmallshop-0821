@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.pms.mapper.CategoryMapper">
+
+<!--    type:结果集映射的最终类型
+        autoMapping:自动映射(属性名和sql语句的字段名一致)
+        子标签：
+            id:定义主键的映射关系
+            result:定义普通属性的映射关系
+            association:一对一映射关系
+            collection:一堆多的映射关系
+
+           mybatis中的关联查询也有两种写法：
+                通过一个关联的sql实现
+                分步实现（延迟加载）
+
+                                -->
+    <resultMap id="queryLv12CatesWithSubsByPidMap" type="categoryEntity" autoMapping="true">
+<!--        二级分类的主键映射关系-->
+        <id column="id" property="id"></id>
+        <collection property="subs" javaType="List" ofType="categoryEntity" select="queryLv12CatesWithSubsByPid" column="id">
+        </collection>
+    </resultMap>
+    
+    <select id="queryLv12CatesWithSubsByPid" resultMap="queryLv12CatesWithSubsByPidMap">
+        select * from pms_category  where parent_id=#{pid}
+    </select>
+</mapper>

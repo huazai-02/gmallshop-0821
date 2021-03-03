@@ -1,0 +1,47 @@
+server:
+  port: 18092
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+  sleuth:
+    sampler:
+      probability: 1
+  zipkin:
+    base-url: http://localhost:9411
+    sender:
+      type: web
+    discovery-client-enabled: false
+  redis:
+    host: 192.168.198.128
+  thymeleaf:
+    cache: false
+
+
+  rabbitmq:
+    host: 192.168.198.128
+    virtual-host: /zhangsan
+    username: zhangsan
+    password: zhangsan
+    publisher-returns: true #确认是否到达队列
+    publisher-confirm-type: correlated #异步确认
+
+thread:
+  pool:
+    coreSize: 100
+    maxSize: 500
+    keepAlive: 60
+    blockingQueueSize: 2000
+
+feign:
+  sentinel:
+    enabled: true
+
+jwt:
+  pubKeyPath: F:\rsa\rsa.pub
+  cookieName: GMALL-TOKEN

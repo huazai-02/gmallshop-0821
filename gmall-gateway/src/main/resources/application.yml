@@ -1,0 +1,73 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: pms-route
+          uri: lb://pms-service
+          predicates:
+            - Path=/pms/**
+        - id: sms-route
+          uri: lb://sms-service
+          predicates:
+            - Path=/sms/**
+        - id: oms-route
+          uri: lb://oms-service
+          predicates:
+            - Path=/oms/**
+        - id: ums-route
+          uri: lb://ums-service
+          predicates:
+            - Path=/ums/**
+        - id: wms-route
+          uri: lb://wms-service
+          predicates:
+            - Path=/wms/**
+        - id: search-route
+          uri: lb://search-service
+          predicates:
+            - Host=search.gmall.com
+        - id: index-route
+          uri: lb://index-service
+          predicates:
+            - Host=www.gmall.com, gmall.com
+        - id: index-route2
+          uri: lb://index-service
+          predicates:
+            - Path=/index/**
+        - id: item-route
+          uri: lb://item-service
+          predicates:
+            - Host=item.gmall.com
+        - id: sso-route
+          uri: lb://auth-service
+          predicates:
+            - Host=sso.gmall.com
+        - id: cart-route
+          uri: lb://cart-service
+          predicates:
+            - Host=cart.gmall.com
+        - id: order-route
+          uri: lb://order-service
+          predicates:
+            - Host=order.gmall.com
+          filters:
+            - Auth=/
+        - id: payment-route
+          uri: lb://payment-service
+          predicates:
+            - Host=payment.gmall.com
+          filters:
+            - Auth=/
+        - id: payment-route
+          uri: lb://payment-service
+          predicates:
+            - Path=/pay/**
+
+jwt:
+  pubKeyPath: F:\rsa\rsa.pub
+  cookieName: GMALL-TOKEN

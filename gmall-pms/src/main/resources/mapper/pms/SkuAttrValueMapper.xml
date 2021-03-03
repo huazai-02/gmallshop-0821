@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.pms.mapper.SkuAttrValueMapper">
+
+    <select id="querySaleAttrsMappingBySkuId" resultType="java.util.Map">
+        select GROUP_CONCAT(attr_value order by attr_id asc ) as attr_values,sku_id
+        from pms_sku_attr_value
+        where sku_id in 
+        <foreach collection="skuIds" item="skuId" separator="," open="(" close=")">
+            #{skuId}
+        </foreach>
+        group by sku_id
+    </select>
+</mapper>

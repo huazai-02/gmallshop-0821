@@ -1,0 +1,51 @@
+server:
+  port: 18081
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+    alibaba:
+      seata:
+        tx-service-group: gmall-tx-group #分布式事务
+  sleuth:
+    sampler:
+      probability: 1
+
+  zipkin:
+    base-url: http://localhost:9411
+    sender:
+      type: web
+    discovery-client-enabled: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guli_pms?characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+  redis:
+    host: 192.168.198.128
+  rabbitmq:
+    host: 192.168.198.128
+    port: 5672
+    username: zhangsan
+    virtual-host: /zhangsan
+    password: zhangsan
+    publisher-confirm-type: correlated
+    publisher-returns: true
+feign:
+  sentinel:
+    enabled: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml #mapper接口的映射文件 打包时需要打包的xml文件路径
+  type-aliases-package: com.atguigu.gmall.pms.entity #数据库表对应的实体类
+  global-config:
+    db-config:
+      id-type: auto #设置id自增，实际开发应选分布式
+
+logging:
+  level:
+    com.atguigu.gmall: debug
